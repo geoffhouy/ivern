@@ -124,6 +124,16 @@ class RiotAPI(object):
             region=region
         )
 
+    def get_match_history_by_account_id(self, region, account_id, params={}):
+        return self._request(
+            url=URL['match_by_account'].format(
+                version=VERSION['match'],
+                account_id=account_id
+            ),
+            region=region,
+            params=params
+        )
+
     def get_summoner_by_name(self, region, name):
         return self._request(
             url=URL['summoner_by_name'].format(
