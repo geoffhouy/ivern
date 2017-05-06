@@ -85,6 +85,21 @@ REGION = {
 }
 
 
+def get_queue_name_by_queue_id(queue_id):
+    name = ''
+    if queue_id == 4 or queue_id == 420:
+        name = 'Ranked Solo 5:5'
+    elif queue_id == 6 or queue_id == 410 or queue_id == 440:
+        name = 'Ranked Flex 5:5'
+    elif queue_id == 9:
+        name = 'Ranked Flex 3:3'
+    elif queue_id == 41:
+        name = 'Ranked Team 3:3'
+    elif queue_id == 42:
+        name = 'Ranked Team 5:5'
+    return name
+
+
 class RiotAPI(object):
 
     def __init__(self):
