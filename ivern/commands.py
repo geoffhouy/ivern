@@ -1,10 +1,10 @@
+import discord
 import ivern.riot_api as riot_api
 import ivern.utils as utils
-import discord
 
+from datetime import datetime
 from discord.ext.commands import Bot
 from ivern.riot_api import RiotAPI
-from datetime import datetime
 
 bot = Bot(command_prefix='!')
 token = ''  # Add in Discord app ivern user token
@@ -182,6 +182,157 @@ async def profile(ctx, *args):
         embed_message.add_field(
             name='ᅠ',
             value=field2_text
+        )
+    return await bot.send_message(
+        ctx.message.channel,
+        embed=embed_message
+    )
+
+
+@bot.command(pass_context=True)
+async def mastery(ctx, *args):
+    if not args:
+        embed_message = discord.Embed(
+            color=utils.color,
+            title='Error',
+            description='No summoner name entered.'
+        )
+        embed_message.set_footer(
+            text=utils.get_negative_quote(),
+            icon_url=utils.icon
+        )
+        return await bot.send_message(
+            ctx.message.channel,
+            embed=embed_message
+        )
+    region = None
+    for key in riot_api.REGION:
+        if args[0].lower() == key:
+            region = args[0].lower()
+    sanitized_name = str(''.join(args if region is None else args[1:])).replace('_', '')
+    api = RiotAPI()
+    if region is None:
+        region = riot_api.REGION[api.default_region]['region']
+    summoner = api.get_summoner_by_name(region, sanitized_name)
+    summoner_name = summoner.get('name')
+    if summoner_name is None:
+        embed_message = discord.Embed(
+            color=utils.color,
+            title='Error',
+            description='Invalid summoner name entered.'
+        )
+        embed_message.set_footer(
+            text=utils.get_negative_quote(),
+            icon_url=utils.icon
+        )
+        return await bot.send_message(
+            ctx.message.channel,
+            embed=embed_message
+        )
+    summoner_id = summoner.get('id')
+    embed_message = discord.Embed(
+        color=utils.color,
+        title='Champion Mastery',
+        description='**{0}** ({1})\n[OP.GG]({2})'.format(
+            summoner_name,
+            riot_api.REGION[region]['name'],
+            'https://{0}.op.gg/summoner/userName={1}'.format(
+                region,
+                sanitized_name)),
+    )
+    embed_message.set_footer(
+        text=utils.get_positive_quote(),
+        icon_url=utils.icon
+    )
+    champion_mastery = api.get_champion_mastery_by_summoner_id(region, summoner_id)
+    if not champion_mastery:
+        embed_message.add_field(
+            name='Champion Mastery',
+            value='No champions to display.',
+            inline=False
+        )
+    else:
+        champions_to_display = 20 if len(champion_mastery) >= 20 else len(champion_mastery)
+        champion_data = api.get_static_champion_data()
+        field1_text = ''
+        field2_text = ''
+        field3_text = ''
+        for i in range(0, champions_to_display):
+            for key, value in champion_data.get('data').items():
+                if champion_mastery[i].get('championId', 0) == value['id']:
+                    field1_text += 'Level **{0}**: {1}\n'.format(
+                        champion_mastery[i].get('championLevel'),
+                        value['key']
+                    )
+                    field2_text += '{0} {1}\n'.format(
+                        '{:,}'.format(
+                            champion_mastery[i].get('championPoints')
+                        ),
+                        '({0} until **{1}**)'.format(
+                            '{:,}'.format(champion_mastery[i].get('championPointsUntilNextLevel')),
+                            champion_mastery[i].get('championLevel') + 1
+                        ) if champion_mastery[i].get('championLevel') < 5 else ''
+                    )
+                    field3_text += '{0} {1}\n'.format(
+                        '~~Chest~~' if champion_mastery[i].get('chestGranted') else 'Chest',
+                        '(**{0}** token{1})'.format(
+                            champion_mastery[i].get('tokensEarned'),
+                            '' if champion_mastery[i].get('tokensEarned') == 1 else 's'
+                        ) if champion_mastery[i].get('championLevel') == 5 or champion_mastery[i].get(
+                            'championLevel') == 6 else ''
+                    )
+        total_champion_level = 0
+        total_champion_points = 0
+        total_chest_granted = 0
+        for champion in champion_mastery:
+            total_champion_level += champion.get('championLevel')
+            total_champion_points += champion.get('championPoints')
+            total_chest_granted += 1 if champion.get('chestGranted') else 0
+        embed_message.add_field(
+            name='Champion',
+            value=field1_text,
+            inline=True
+        )
+        embed_message.add_field(
+            name='Points',
+            value=field2_text,
+            inline=True
+        )
+        embed_message.add_field(
+            name='Status',
+            value=field3_text,
+            inline=True
+        )
+        embed_message.add_field(
+            name='Total Level',
+            value='{0}/{1}'.format(
+                '{:,}'.format(
+                    total_champion_level
+                ),
+                '{:,}'.format(
+                    len(champion_mastery) * 7
+                )
+            ),
+            inline=True
+        )
+        embed_message.add_field(
+            name='Total Points',
+            value='{:,}'.format(
+                total_champion_points
+            ),
+            inline=True
+        )
+        embed_message.add_field(
+            name='Total Chests',
+            value='{0}/{1}'.format(
+                '{:,}'.format(
+                    total_chest_granted
+                ),
+                '{:,}'.format(
+                    len(champion_mastery)
+                )
+            ),
+            inline=True
         )
     return await bot.send_message(
         ctx.message.channel,
