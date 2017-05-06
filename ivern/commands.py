@@ -7,7 +7,7 @@ from discord.ext.commands import Bot
 from ivern.riot_api import RiotAPI
 
 bot = Bot(command_prefix='!')
-token = ''  # Add in Discord app ivern user token
+token = ''  # Add in Discord app bot user token
 
 
 @bot.event
