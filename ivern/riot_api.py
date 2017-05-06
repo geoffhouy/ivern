@@ -105,3 +105,12 @@ class RiotAPI(object):
         )
         print(response.url)
         return response.json()
+
+    def get_summoner_by_name(self, region, name):
+        return self._request(
+            url=URL['summoner_by_name'].format(
+                version=VERSION['summoner'],
+                name=name
+            ),
+            region=region
+        )
