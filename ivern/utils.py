@@ -1,5 +1,8 @@
 import random
 
+color = 0x777409
+icon = 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ivern.png'
+
 
 def get_positive_quote():
     quote = [
