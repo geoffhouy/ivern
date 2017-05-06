@@ -106,6 +106,15 @@ class RiotAPI(object):
         print(response.url)
         return response.json()
 
+    def get_champion_mastery_by_summoner_id(self, region, summoner_id):
+        return self._request(
+            url=URL['champion_mastery_by_summoner'].format(
+                version=VERSION['champion_mastery'],
+                summoner_id=summoner_id
+            ),
+            region=region
+        )
+
     def get_league_by_summoner_id(self, region, summoner_id):
         return self._request(
             url=URL['league_by_summoner'].format(
