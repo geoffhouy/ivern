@@ -2,6 +2,20 @@ import random
 
 color = 0x777409
 icon = 'http://ddragon.leagueoflegends.com/cdn/6.24.1/img/champion/Ivern.png'
+numbered_reactions = ['1⃣', '2⃣', '3⃣', '4⃣', '5⃣', '6⃣', '7⃣', '8⃣', '9⃣', '🔟']
+
+
+def convert_time_to_ago_string(datetime):
+    days = datetime.days
+    hours, remainder = divmod(datetime.seconds, 3600)
+    if days > 0:
+        text = '{0} days ago'.format(days)
+    else:
+        if hours > 1:
+            text = '{0} hours ago'.format(hours)
+        else:
+            text = 'Less than one hour ago'
+    return text
 
 
 def get_positive_quote():
