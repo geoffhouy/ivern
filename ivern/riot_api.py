@@ -208,6 +208,16 @@ class RiotAPI(object):
             params=params
         )
 
+    def get_static_masteries_data(self, params={}):
+        return self._request(
+            url=URL['static_data'].format(
+                version=VERSION['static_data'],
+                category='masteries'
+            ),
+            region=None,
+            params=params
+        )
+
     def get_summoner_by_name(self, region, name):
         return self._request(
             url=URL['summoner_by_name'].format(
