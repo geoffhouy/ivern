@@ -103,7 +103,7 @@ def get_queue_name_by_queue_id(queue_id):
 class RiotAPI(object):
 
     def __init__(self):
-        self._api_key = 'RGAPI-3a064d65-a523-4b9d-8b45-ebb474586344'  # Add in Riot Games API key
+        self._api_key = ''  # Add in Riot Games API key
         self.default_region = REGION['na']['region']  # Change region key to preferred region
 
     def _request(self, url, region, params={}):
