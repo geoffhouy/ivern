@@ -178,6 +178,16 @@ class RiotAPI(object):
             region=region
         )
 
+    def get_static_champion_data(self, params={}):
+        return self._request(
+            url=URL['static_data'].format(
+                version=VERSION['static_data'],
+                category='champions'
+            ),
+            region=None,
+            params=params
+        )
+
     def get_summoner_by_name(self, region, name):
         return self._request(
             url=URL['summoner_by_name'].format(
