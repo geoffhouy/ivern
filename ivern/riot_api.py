@@ -153,6 +153,15 @@ class RiotAPI(object):
             params=params
         )
 
+    def get_runes_by_summoner_id(self, region, summoner_id):
+        return self._request(
+            url=URL['runes_by_summoner'].format(
+                version=VERSION['runes'],
+                summoner_id=summoner_id
+            ),
+            region=region
+        )
+
     def get_summoner_by_name(self, region, name):
         return self._request(
             url=URL['summoner_by_name'].format(
