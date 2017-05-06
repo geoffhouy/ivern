@@ -1,0 +1,53 @@
+import random
+
+
+def get_positive_quote():
+    quote = [
+        'My favorite color is spring.',
+        'Live each day as if it\'s your first.',
+        'The sunshine tastes so good today.',
+        'Feels good to stretch the old beanstalks.',
+        'What a wonderful day. Gooseberries would love it.',
+        'Trees love tickling each other\'s branches.',
+        'I find that the stranger life gets, the more it seems to make sense.',
+        'Every river reaches the ocean in its own way.',
+        'Ladybugs should really befriend inchworms.',
+        'I follow only the sun! Eh, and sometimes a river. This one time, a scorpion.',
+        'The cleverness of mushrooms always surprises me!',
+        'Have an unusual day.',
+        'Be grateful for this moment. And this one. Oh, and this one. Oh, and this one\'s good too!',
+        'Nature gives so much more than it asks for in return.',
+        'A gift from the forest.',
+        'Given freely to those in need.',
+        'Use this gift well.',
+        'Don\'t play possum! Daisy hates possums!',
+        'These are so much better than the mudloafers I\'ve been using.',
+        'Oh, a feather-backed caterpillar!'
+    ]
+    return quote[random.randint(0, len(quote) - 1)]
+
+
+def get_negative_quote():
+    quote = [
+        'Nature isn\'t always gentle.',
+        'Trust me, you need this.',
+        'It\'s okay, Gromp is a slow learner too.',
+        'Huh. I can be thorny too.',
+        'Some buds need a little push to blossom.',
+        'Let me help you grow.',
+        'The chameleons would be proud.',
+        'Uh, the ferns did it.',
+        'Who did that? It was me!',
+        'Never trust a butterfly with a secret.',
+        'Potatoes are always watching.',
+        'I wonder what the ducks are plotting today.',
+        'I am never lost in the wilderness... hehe, only in conversations.',
+        'Don\'t fret, Blue. Moss builds character.',
+        'Poor thing, who bent your antenna?',
+        'Oh, you got me on that one!',
+        'Malice is afoot.',
+        'Do not linger here.',
+        'Once in a blue leaf, the earthworm will best the robin.',
+        'Never hurts to be carefully carefree.'
+    ]
+    return quote[random.randint(0, len(quote) - 1)]
