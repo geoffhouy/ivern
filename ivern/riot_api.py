@@ -115,6 +115,14 @@ class RiotAPI(object):
             region=region
         )
 
+    def get_server_status(self, region):
+        return self._request(
+            url=URL['lol_status'].format(
+                version=VERSION['lol_status'],
+            ),
+            region=region
+        )
+
     def get_league_by_summoner_id(self, region, summoner_id):
         return self._request(
             url=URL['league_by_summoner'].format(
