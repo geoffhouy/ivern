@@ -18,6 +18,16 @@ def convert_time_to_ago_string(datetime):
     return text
 
 
+def convert_game_duration_to_string(duration):
+    minutes, seconds = divmod(duration, 60)
+    hours, minutes = divmod(minutes, 60)
+    return '{0}{1}:{2}'.format(
+        (str(hours) + ':') if hours > 0 else '',
+        str(minutes).zfill(2),
+        str(seconds).zfill(2)
+    )
+
+
 def get_positive_quote():
     quote = [
         'My favorite color is spring.',
