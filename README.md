@@ -4,6 +4,7 @@ Ivern is a Discord chat bot that focuses on reading from the League of Legends A
 **Commands**:  
 - [x] !profile [optional: region] [summoner name] ([Click to view](http://i.imgur.com/BEyNApg.png))
 - [x] !mastery [optional: region] [summoner name] ([Click to view](http://i.imgur.com/opyACZM.png))
+- [x] !history [optional: region] [summoner name] ([Click to view](http://i.imgur.com/X0DMcsa.gifv))
 - [ ] *To be added...*
 
 **Credits**:  
